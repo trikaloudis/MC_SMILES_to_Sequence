@@ -1,7 +1,8 @@
 import streamlit as st
 from rdkit import Chem
+from rdkit.Chem import Draw  # <--- Added this specific import
 
-# --- The Logic Function (Same as before, just returns data) ---
+# --- The Logic Function ---
 def analyze_microcystin_advanced(smiles):
     mol = Chem.MolFromSmiles(smiles)
     
@@ -109,7 +110,9 @@ if st.button("Analyze Structure"):
                 
             # Render Structure Image
             mol = Chem.MolFromSmiles(user_smiles)
-            st.image(Chem.Draw.MolToImage(mol, size=(600, 400)), caption="Molecular Structure")
+            
+            # --- FIXED LINE BELOW ---
+            st.image(Draw.MolToImage(mol, size=(600, 400)), caption="Molecular Structure")
     else:
         st.warning("Please enter a SMILES string.")
 
